@@ -6,7 +6,7 @@ SRC_DIR = src
 BUILD_DIR = build
 
 TARGET = $(BUILD_DIR)/main.o
-SRCS = $(SRC_DIR)/main.cpp $(SRC_DIR)/utils/logger.cpp
+SRCS = $(SRC_DIR)/main.cpp $(SRC_DIR)/utils/logger.cpp $(SRC_DIR)/core/http_server.cpp
 
 all: $(TARGET)
 
