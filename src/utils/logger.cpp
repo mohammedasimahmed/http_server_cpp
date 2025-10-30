@@ -1,8 +1,6 @@
 #include "utils/logger.h"
 #include <cstdlib>
 
-using namespace std;
-
 namespace logger
 {
     void log(const string &message)

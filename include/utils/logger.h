@@ -1,6 +1,4 @@
-#ifndef LOGGER
-#define LOGGER
-
+#pragma once
 #include <string>
 #include <iostream>
 
@@ -11,5 +9,3 @@ namespace logger
     void log(const string &message);
     void exitWithError(const string &errorMessage);
 }
-
-#endif

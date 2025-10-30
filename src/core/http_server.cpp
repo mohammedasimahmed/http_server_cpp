@@ -1,20 +1,20 @@
 #include "core/http_server.h"
 #include "utils/logger.h"
+#include "routes/router.h"
 #include <iostream>
 #include <thread>
 #include <unistd.h>
 #include <cstring>
 #include <arpa/inet.h>
 
-using namespace std;
-
 namespace http
 {
-    HttpServer::HttpServer(string ip_address, int port)
+    HttpServer::HttpServer(string ip_address, int port, router::Router* router)
     {
         server_ip_address = ip_address;
         server_port = port;
-        
+        router = router;
+
         startServer();
     }
 
@@ -82,13 +82,13 @@ namespace http
 
         logger::log("Received request:\n" + request);
 
+        string data = router->route_request(request);
         string response =
             "HTTP/1.1 200 OK\r\n"
             "Content-Type: text/plain\r\n"
             "Content-Length: 13\r\n"
             "Connection: close\r\n"
-            "\r\n"
-            "Hello, world!";
+            "\r\n" + data;
 
         send(client_socket, response.c_str(), response.size(), 0);
         close(client_socket);
