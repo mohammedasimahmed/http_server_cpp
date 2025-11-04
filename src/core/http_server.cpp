@@ -2,7 +2,6 @@
 #include "utils/logger.h"
 #include "routes/router.h"
 #include <iostream>
-#include <thread>
 #include <unistd.h>
 #include <cstring>
 #include <arpa/inet.h>
@@ -64,8 +63,7 @@ namespace http
                 continue;
             }
 
-            thread client_thread(&HttpServer::handle_client, this, client_socket);
-            client_thread.detach();            
+            handle_client(client_socket);            
         }
 
         return 0;
