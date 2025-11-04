@@ -15,20 +15,20 @@ namespace http
         server_port = port;
         router = router;
 
-        startServer();
+        start_server();
     }
 
     HttpServer::~HttpServer()
     {
-        closeServer();
+        close_server();
     }
 
-    int HttpServer::startServer()
+    int HttpServer::start_server()
     {
         server_socket = socket(AF_INET, SOCK_STREAM, 0);
         if (server_socket < 0)
         {
-            logger::exitWithError("Cannot create socket");
+            logger::exit_with_error("Cannot create socket");
         }
 
         sockaddr_in server_socket_addr;
@@ -42,12 +42,12 @@ namespace http
 
         if(bind(server_socket, (struct sockaddr *) &server_socket_addr, sizeof(server_socket_addr)) < 0)
         {
-            logger::exitWithError("Could not bind the server socket to IP Address: " + server_ip_address + "and PORT: " + to_string(server_port));
+            logger::exit_with_error("Could not bind the server socket to IP Address: " + server_ip_address + "and PORT: " + to_string(server_port));
         }
 
         if(listen(server_socket, SOMAXCONN) < 0)
         {
-            logger::exitWithError("Could not ready the server socket for accepting client connections");
+            logger::exit_with_error("Could not ready the server socket for accepting client connections");
         }
 
         logger::log("Server started on " + server_ip_address + ":" + to_string(server_port));
@@ -64,14 +64,14 @@ namespace http
                 continue;
             }
 
-            thread client_thread(&HttpServer::handleClient, this, client_socket);
+            thread client_thread(&HttpServer::handle_client, this, client_socket);
             client_thread.detach();            
         }
 
         return 0;
     }
 
-    void HttpServer::handleClient(int client_socket)
+    void HttpServer::handle_client(int client_socket)
     {
         char buffer[4096];
         memset(buffer, 0, sizeof(buffer));
@@ -94,7 +94,7 @@ namespace http
         close(client_socket);
     }
 
-    void HttpServer::closeServer()
+    void HttpServer::close_server()
     {
         if (server_socket >= 0)
             close(server_socket);

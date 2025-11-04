@@ -8,9 +8,9 @@ namespace logger
         cout << message << endl;
     }
 
-    void exitWithError(const string &errorMessage)
+    void exit_with_error(const string &error_message)
     {
-        cerr<<"ERROR: " + errorMessage <<endl;
+        cerr<<"ERROR: " + error_message <<endl;
         exit(1);
     }
 }

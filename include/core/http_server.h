@@ -12,8 +12,8 @@ namespace http
             HttpServer(string ip_address, int port, router::Router* router);
             ~HttpServer();
 
-            int startServer();
-            void handleClient(int client_socket);
+            int start_server();
+            void handle_client(int client_socket);
         
         private:
             string server_ip_address;
@@ -21,6 +21,6 @@ namespace http
             int server_socket;
             router::Router* router;
             
-            void closeServer();
+            void close_server();
     };
 }
